@@ -7,6 +7,7 @@ import Login from './component/Login/Login'
 import { BrowserRouter as Router,Route,Routes} from "react-router-dom";
 import CreateBlog from './component/CreateBlog/CreateBlog'
 import Home from './pages/home/Home'
+import SingleBlog from './pages/SingleBlog/SingleBlog'
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path='/' element={<Home/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/editblog/:id' element={<EditBlog/>}/>
+        <Route path='/singleblog/:id' element={<SingleBlog/>}/>
         <Route path='/Register' element={<Register/>}/>
         <Route path='/createblog' element={<CreateBlog/>}/>
       </Routes>

@@ -67,7 +67,9 @@ const CreateBlog = () => {
       <label htmlFor="title">Enter the Title:</label> <br />
       <input type="text" name="title" id="title" value={data.title} onChange={handleInputChange} required /><br /><br />
 
-      <input type="file" name="file" id="file"  onChange={handleFileChange} /> <br /> <br />
+      <input type="file" name="file" id="file"  onChange={handleFileChange} />
+      {data.file&&<p>File Name: <b>{data.file}</b></p>} <br /> <br />
+     
 
       <label htmlFor="description">Description:</label> <br />
       <textarea id="description" name="description"  value={data.description} rows="4" onChange={handleInputChange} required></textarea> <br /> <br />
