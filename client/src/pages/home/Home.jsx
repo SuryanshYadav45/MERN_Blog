@@ -21,7 +21,7 @@ const Home = () => {
     console.log(blog)
     }
     return (
-        <>
+        <div className="homeWrapper">
         {
             blog.map((singleBlog)=>
             {
@@ -30,7 +30,7 @@ const Home = () => {
         }
             
             
-        </>
+        </div>
     );
 };
 

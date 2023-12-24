@@ -2,9 +2,11 @@ import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import "./CreateBlog.scss";
 import { UserContext } from '../../authcontext';
+import { useNavigate } from 'react-router-dom';
 
 const CreateBlog = () => {
   const{user} =useContext(UserContext)
+  const navigate=useNavigate();
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -37,9 +39,11 @@ const CreateBlog = () => {
         },
       });
 
-      console.log('Blog created successfully:', response.data);
-      // Handle success (redirect, show a message, etc.)
-
+      if(response.status===200)
+      {
+        navigate('/')
+      }
+     
     } catch (error) {
       console.error('Error creating blog:', error.message);
       // Handle error

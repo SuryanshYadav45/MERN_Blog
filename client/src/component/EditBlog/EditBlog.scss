@@ -1,6 +1,7 @@
-form {
-    max-width: 650px;
-  
+.editwrapper{
+  form {
+    max-width: 1200px;
+    margin: 0 auto;
     label {
       display: block;
       font-weight: bold;
@@ -41,3 +42,4 @@ form {
       }
     }
   }
+}

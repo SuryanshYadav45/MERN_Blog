@@ -3,7 +3,9 @@ import "./SingleBlog.scss"
 import EditBlog from "../../component/EditBlog/EditBlog"
 const SingleBlog = () => {
   return (
-   <EditBlog/>
+   <>
+   <h1>this is single blog postImage</h1>
+   </>
     )
 }
 

@@ -1,0 +1,28 @@
+// mixins.scss
+
+// Mixin for small screens (up to 767px width)
+@mixin sm {
+    @media (max-width: 680px) {
+      @content;
+    }
+  }
+// @mixin sm-lg{
+//   @media(min-width: 650px) and (max-width:800px)
+//   {
+//     @content;
+//   }
+// }
+  // Mixin for medium screens (768px to 991px width)
+  @mixin md {
+    @media  (max-width: 800px) {
+      @content;
+    }
+  }
+  
+  // Mixin for large screens (992px width and above)
+  @mixin lg {
+    @media (min-width: 992px) {
+      @content;
+    }
+  }
+  

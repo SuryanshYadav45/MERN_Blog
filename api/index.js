@@ -93,11 +93,30 @@ app.get('/getblog', async (req, res) => {
 
   res.status(200).json(blogs);
 })
-app.post('/editblog/:id', async (req, res) => {
+app.get('/editblog/:id', async (req, res) => {
   const singleblog = await BlogModel.findOne({ _id: req.params.id })
   // console.log(singleblog)
 
   res.status(200).json(singleblog);
+})
+app.put('/updateblog/:id',upload.single('file'),async(req,res)=>
+{
+  try {
+    const {title,description,}=req.body;
+    const blog = await BlogModel.findOne({ _id: req.params.id })
+    console.log("file name from the put api",filename)
+    blog.title=title? title:blog.title;
+    blog.description=description? description:blog.description;
+    blog.file=req.file?filename:blog.file;
+    
+
+    const updateBlog=await blog.save();
+    res.status(200).json(updateBlog)
+
+  } catch (error) {
+   console.log(error) 
+  }
+
 })
 
 

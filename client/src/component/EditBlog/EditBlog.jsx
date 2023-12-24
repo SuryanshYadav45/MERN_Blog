@@ -2,28 +2,35 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import "./EditBlog.scss";
 import { UserContext } from '../../authcontext';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const CreateBlog = () => {
+    const navigate=useNavigate();
     const { id } = useParams();
     const [data, setdata] = useState({})
+    const{user} =useContext(UserContext)
+    const [formData, setFormData] = useState({
+      title: '',
+      description: '',
+      file: null,
+    });
     useEffect(()=>{
         const fetchdata=async()=>
         {
-            const response=await axios.post(`http://localhost:4000/editblog/${id}`)
+            const response=await axios.get(`http://localhost:4000/editblog/${id}`)
             setdata(response.data)
+            setFormData({
+              title: response.data.title,
+              description: response.data.description,
+              file: response.data.file, // Assuming you don't want to update the file in the edit form
+            });
         }
         fetchdata();
     },[])
 
     console.log(data)
 
-  const{user} =useContext(UserContext)
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    file: null,
-  });
+
   
 
   const handleInputChange = (e) => {
@@ -35,7 +42,7 @@ const CreateBlog = () => {
     const file = e.target.files[0];
     setFormData((prevData) => ({ ...prevData, file }));
   };
-  const handleSubmit = async (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
 
     const formDataToSend = new FormData();
@@ -44,38 +51,41 @@ const CreateBlog = () => {
     formDataToSend.append('file', formData.file);
 
     try {
-      const response = await axios.post('http://localhost:4000/createblog', formDataToSend, {
+      const response = await axios.put(`http://localhost:4000/updateblog/${id}`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'Authorization': `Bearer ${user}`,
         },
       });
-
-      console.log('Blog created successfully:', response.data);
-      // Handle success (redirect, show a message, etc.)
+      
+      if(response.status===200)
+      {
+        navigate('/');
+      }
 
     } catch (error) {
-      console.error('Error creating blog:', error.message);
+      console.error( error.message);
       // Handle error
     }
   };
-
+  console.log("formData=",formData)
   return (
-    <form onSubmit={handleSubmit}>
+    <div className='editwrapper'>
+    <form onSubmit={handleUpdate}>
       <h1>Create Your Blog</h1>
 
       <label htmlFor="title">Enter the Title:</label> <br />
-      <input type="text" name="title" id="title" value={data.title} onChange={handleInputChange} required /><br /><br />
+      <input type="text" name="title" id="title" value={formData.title} onChange={handleInputChange} required /><br /><br />
 
       <input type="file" name="file" id="file"  onChange={handleFileChange} />
       {data.file&&<p>File Name: <b>{data.file}</b></p>} <br /> <br />
      
 
       <label htmlFor="description">Description:</label> <br />
-      <textarea id="description" name="description"  value={data.description} rows="4" onChange={handleInputChange} required></textarea> <br /> <br />
+      <textarea id="description" name="description"  value={formData.description} rows="4" onChange={handleInputChange} required></textarea> <br /> <br />
 
-      <input type="submit" value="Create Blog" />
+      <input type="submit" value="Update Blog" />
     </form>
+    </div>
   );
 };
 
