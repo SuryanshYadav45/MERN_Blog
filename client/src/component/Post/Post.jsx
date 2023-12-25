@@ -1,4 +1,4 @@
-import React, { useContext,useEffect,useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import "./Post.scss"
 import { useNavigate } from "react-router-dom"
 import { UserContext } from "../../authcontext"
@@ -8,26 +8,22 @@ const Post = ({ data }) => {
   const navigate = useNavigate();
   const { user } = useContext(UserContext)
   const [author, setauthor] = useState(false)
-  let userid;
-  
-   useEffect(()=>
-   {
-    if (user) {
-      const decode = jwtDecode(user);
-      const { userId } = decode;
-      userid=userId;}
-   if (userid === data.authorId) {
-    setauthor(true);
- 
-  }else {
-    setauthor(false); // Reset author state when user logs out
-  }
-},[user,data.authorId])
-   console.log(author);
-  
+  useEffect(() => {
+    try {
+      const decode = user ? jwtDecode(user) : null;
+      console.log("this is decoded value", decode)
+      const userId = decode ? decode.userId : null;
+      console.log("this is the userId", userId)
+      setauthor(userId === data.authorId)
+    } catch (error) {
+      console.log("error occured", error)
+    }
 
-   
-  
+  }, [user, data.authorId])
+
+
+
+
   const formattedDate = new Date(data.date).toLocaleString('en-US', {
     timeZone: 'Asia/Kolkata', // Adjust time zone as needed
     hour12: true,
@@ -50,7 +46,7 @@ const Post = ({ data }) => {
         <img src={`http://localhost:4000/uploads/` + data.file} alt="postImage" />
       </div>
       <div className="description">
-        {author? <i class="fa-solid edit fa-pen-to-square" onClick={() => navigate(`/editBlog/${data._id}`)} ></i>: null }
+        {author ? <i className="fa-solid edit fa-pen-to-square" onClick={() => navigate(`/editBlog/${data._id}`)} ></i> : null}
         <h1>{data.title}</h1>
         <span>{data.authorname}</span> <br /> <span>{formattedDate}</span>
         <p>{data.description}</p>

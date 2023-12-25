@@ -51,6 +51,7 @@ const CreateBlog = () => {
   };
 
   return (
+    <div className="createblogWrapper">
     <form onSubmit={handleSubmit}>
       <h1>Create Your Blog</h1>
 
@@ -64,6 +65,7 @@ const CreateBlog = () => {
 
       <input type="submit" value="Create Blog" />
     </form>
+    </div>
   );
 };
 

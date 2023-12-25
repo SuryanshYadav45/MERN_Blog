@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import "./EditBlog.scss";
 import { UserContext } from '../../authcontext';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const CreateBlog = () => {
     const navigate=useNavigate();
@@ -69,22 +69,24 @@ const CreateBlog = () => {
   };
   console.log("formData=",formData)
   return (
-    <div className='editwrapper'>
-    <form onSubmit={handleUpdate}>
-      <h1>Create Your Blog</h1>
+    <div className='editwrapper'> {user ? (
+      <form onSubmit={handleUpdate}>
+        <h1>Update Your Blog</h1>
 
-      <label htmlFor="title">Enter the Title:</label> <br />
-      <input type="text" name="title" id="title" value={formData.title} onChange={handleInputChange} required /><br /><br />
+        <label htmlFor="title">Enter the Title:</label> <br />
+        <input type="text" name="title" id="title" value={formData.title} onChange={handleInputChange} required /><br /><br />
 
-      <input type="file" name="file" id="file"  onChange={handleFileChange} />
-      {data.file&&<p>File Name: <b>{data.file}</b></p>} <br /> <br />
-     
+        <input type="file" name="file" id="file" onChange={handleFileChange} />
+        {data.file && <p>File Name: <b>{data.file}</b></p>} <br />
 
-      <label htmlFor="description">Description:</label> <br />
-      <textarea id="description" name="description"  value={formData.description} rows="4" onChange={handleInputChange} required></textarea> <br /> <br />
+        <label htmlFor="description">Description:</label> <br />
+        <textarea id="description" name="description" value={formData.description} rows="4" onChange={handleInputChange} required></textarea> <br /> <br />
 
-      <input type="submit" value="Update Blog" />
-    </form>
+        <input type="submit" value="Update Blog" />
+      </form>
+    ) : (
+      <p>Please <Link to='/login'>login</Link> in to update your blog.</p>
+    )}
     </div>
   );
 };

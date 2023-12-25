@@ -119,6 +119,10 @@ app.put('/updateblog/:id',upload.single('file'),async(req,res)=>
 
 })
 
+app.get("/singleblog/:id",async(req,res)=>{
+  const singleblog= await BlogModel.find({_id:req.params.id})
+  res.status(200).json(singleblog) 
+})
 
 app.listen(4000, () => {
   console.log("server running at the specified port")

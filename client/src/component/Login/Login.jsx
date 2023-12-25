@@ -37,10 +37,10 @@ const{loginUser}=useContext(UserContext)
                 <input type="text" placeholder='Enter your Email' onChange={(e)=>setemail(e.target.value)} required/>
                 <br />
                 <br />
-                <input type="password"  placeholder='Create Your Password'onChange={(e)=>setpassword(e.target.value)} required/>
+                <input type="password"  placeholder='Enter Your Password'onChange={(e)=>setpassword(e.target.value)} required/>
                 <br />
                 <br />
-                <input type="submit" />
+                <input type="submit" className='button' />
             </form>
             <p>Don't have an Account? <Link to="/register">Register Now</Link> </p>
         </div>
