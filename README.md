@@ -12,3 +12,6 @@
    
 **6. In the frontend, run `npm start` to start the frontend.**
 
+## Note: Didnt work much on the UI part ;)
+
+
